@@ -13,12 +13,12 @@ namespace VegaForCourse.Configuration
 
             builder
                 .HasOne(vf => vf.Feature)
-                .WithMany(f => f.VehicleFeatures)
+                .WithMany(f => f.Vehicles)
                 .HasForeignKey(vf => vf.FeatureId);
 
             builder
                 .HasOne(vf => vf.Vehicle)
-                .WithMany(f => f.VehicleFeatures)
+                .WithMany(f => f.Features)
                 .HasForeignKey(vf => vf.VehicleId);
         }
     }
