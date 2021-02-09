@@ -10,6 +10,7 @@ namespace VegaForCourse.Mapping
         {
             CreateMap<Make, MakeResource>();
             CreateMap<Model, ModelResource>();
+            CreateMap<Feature, FeatureResource>();
         }
     }
 }
