@@ -3,21 +3,38 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using VegaForCourse.Persistence;
 
 namespace VegaForCourse.Migrations
 {
     [DbContext(typeof(VegaDbContext))]
-    partial class VegaDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210209050307_VehiclesTable")]
+    partial class VehiclesTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .UseIdentityColumns()
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.2");
+
+            modelBuilder.Entity("FeatureVehicle", b =>
+                {
+                    b.Property<int>("FeaturesId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("VehiclesId")
+                        .HasColumnType("int");
+
+                    b.HasKey("FeaturesId", "VehiclesId");
+
+                    b.HasIndex("VehiclesId");
+
+                    b.ToTable("VehicleFeatures");
+                });
 
             modelBuilder.Entity("VegaForCourse.Models.Feature", b =>
                 {
@@ -96,19 +113,19 @@ namespace VegaForCourse.Migrations
                     b.ToTable("Vehicles");
                 });
 
-            modelBuilder.Entity("VegaForCourse.Models.VehicleFeature", b =>
+            modelBuilder.Entity("FeatureVehicle", b =>
                 {
-                    b.Property<int>("FeatureId")
-                        .HasColumnType("int");
+                    b.HasOne("VegaForCourse.Models.Feature", null)
+                        .WithMany()
+                        .HasForeignKey("FeaturesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Property<int>("VehicleId")
-                        .HasColumnType("int");
-
-                    b.HasKey("FeatureId", "VehicleId");
-
-                    b.HasIndex("VehicleId");
-
-                    b.ToTable("VehicleFeatures");
+                    b.HasOne("VegaForCourse.Models.Vehicle", null)
+                        .WithMany()
+                        .HasForeignKey("VehiclesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("VegaForCourse.Models.Model", b =>
@@ -168,38 +185,9 @@ namespace VegaForCourse.Migrations
                     b.Navigation("Model");
                 });
 
-            modelBuilder.Entity("VegaForCourse.Models.VehicleFeature", b =>
-                {
-                    b.HasOne("VegaForCourse.Models.Feature", "Feature")
-                        .WithMany("VehicleFeatures")
-                        .HasForeignKey("FeatureId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("VegaForCourse.Models.Vehicle", "Vehicle")
-                        .WithMany("VehicleFeatures")
-                        .HasForeignKey("VehicleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Feature");
-
-                    b.Navigation("Vehicle");
-                });
-
-            modelBuilder.Entity("VegaForCourse.Models.Feature", b =>
-                {
-                    b.Navigation("VehicleFeatures");
-                });
-
             modelBuilder.Entity("VegaForCourse.Models.Make", b =>
                 {
                     b.Navigation("Models");
-                });
-
-            modelBuilder.Entity("VegaForCourse.Models.Vehicle", b =>
-                {
-                    b.Navigation("VehicleFeatures");
                 });
 #pragma warning restore 612, 618
         }
