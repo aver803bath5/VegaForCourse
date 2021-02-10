@@ -53,7 +53,7 @@ namespace VegaForCourse.Controllers
             var vehicle = await _context.Vehicles.Include(v => v.Features).SingleOrDefaultAsync(v => v.Id == id);
             if (vehicle == null)
                 return NotFound();
-            
+
             _mapper.Map(vehicleResource, vehicle);
             await _context.SaveChangesAsync();
 
@@ -73,6 +73,18 @@ namespace VegaForCourse.Controllers
             await _context.SaveChangesAsync();
 
             return Ok(id);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetVehicle(int id)
+        {
+            var vehicle = await _context.Vehicles.Include(v => v.Features).SingleOrDefaultAsync(v => v.Id == id);
+
+            if (vehicle == null)
+                return NotFound();
+
+            var vehicleResource = _mapper.Map<Vehicle, VehicleResource>(vehicle);
+            return Ok(vehicleResource);
         }
     }
 }
