@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using VegaForCourse.Models;
+using VegaForCourse.Core.Models;
 
 namespace VegaForCourse.Configuration
 {

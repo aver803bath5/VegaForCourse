@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using VegaForCourse.Configuration;
-using VegaForCourse.Models;
+using VegaForCourse.Core.Models;
 
 namespace VegaForCourse.Persistence
 {

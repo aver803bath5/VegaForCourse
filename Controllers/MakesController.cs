@@ -4,7 +4,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using VegaForCourse.Controllers.Resources;
-using VegaForCourse.Models;
+using VegaForCourse.Core.Models;
 using VegaForCourse.Persistence;
 
 namespace VegaForCourse.Controllers

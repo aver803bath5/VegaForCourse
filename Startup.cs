@@ -6,6 +6,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using VegaForCourse.Controllers.Resources;
+using VegaForCourse.Core;
 using VegaForCourse.Mapping;
 using VegaForCourse.Persistence;
 
@@ -23,6 +25,8 @@ namespace VegaForCourse
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<IVehicleRepository, VehicleRepository>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddAutoMapper(typeof(MappingProfile));
             services.AddDbContext<VegaDbContext>(options =>
             {

@@ -5,7 +5,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using VegaForCourse.Controllers.Resources;
-using VegaForCourse.Models;
+using VegaForCourse.Core.Models;
 using VegaForCourse.Persistence;
 
 namespace VegaForCourse.Controllers
@@ -25,7 +25,7 @@ namespace VegaForCourse.Controllers
         public async Task<IActionResult> GetFeatures()
         {
             var features = await _context.Features.ToListAsync();
-            return Ok(features.Select(_mapper.Map<Feature, FeatureResource>));
+            return Ok(features.Select(_mapper.Map<Feature, KeyValuePairResource>));
         }
     }
 }
