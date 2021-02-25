@@ -17,6 +17,7 @@ import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { VehicleFormComponent } from './vehicle-form/vehicle-form.component';
 import { AppErrorHandler } from "./app.error-handler.js";
 import { VehicleListComponent } from './vehicle-list/vehicle-list.component';
+import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 
 if (!isDevMode()) {
   Sentry.init({
@@ -49,6 +50,7 @@ if (!isDevMode()) {
     HttpClientModule,
     FormsModule,
     BrowserAnimationsModule,
+    FontAwesomeModule,
     ToastrModule.forRoot(),
     RouterModule.forRoot([
       { path: '', redirectTo: 'vehicles', pathMatch: 'full' },
