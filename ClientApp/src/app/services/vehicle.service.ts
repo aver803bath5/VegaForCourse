@@ -9,16 +9,19 @@ import { ISaveVehicle } from '../core/models/ISaveVehicle';
   providedIn: 'root'
 })
 export class VehicleService {
+  private readonly vehicleEndpoint = 'api/vehicles';
   constructor(
     private http: HttpClient
   ) { }
 
   getVehicle(id) {
-    return this.http.get<IVehicle>(`/api/vehicles/${id}`);
+    return this.http.get<IVehicle>(`${this.vehicleEndpoint}/${id}`);
   }
 
-  getVehicles() {
-    return this.http.get<Array<IVehicle>>('/api/vehicles');
+  getVehicles(filter) {
+    return this.http.get<Array<IVehicle>>('/api/vehicles', {
+      params: filter
+    });
   }
 
   getMakes() {
@@ -35,10 +38,10 @@ export class VehicleService {
   }
 
   update(vehicle: ISaveVehicle) {
-    return this.http.put(`/api/vehicles/${vehicle.id}`, vehicle);
+    return this.http.put(`${this.vehicleEndpoint}/${vehicle.id}`, vehicle);
   }
 
   delete(id) {
-    return this.http.delete(`/api/vehicles/${id}`);
+    return this.http.delete(`${this.vehicleEndpoint}/${id}`);
   }
 }
