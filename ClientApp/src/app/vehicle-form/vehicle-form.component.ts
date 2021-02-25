@@ -8,7 +8,7 @@ import { IFeature } from "../core/models/IFeature";
 import { ToastrService } from "ngx-toastr";
 import { Observable, forkJoin } from 'rxjs';
 import { IVehicle } from '../core/models/IVechicle';
-import { ISaveVechicle } from '../core/models/ISaveVechicle';
+import { ISaveVehicle } from '../core/models/ISaveVehicle';
 
 @Component({
   selector: 'app-vehicle-form',
@@ -20,7 +20,7 @@ export class VehicleFormComponent implements OnInit {
   makes = new Array<IMake>();
   models = new Array<IModel>();
   features = new Array<IFeature>();
-  vehicle: ISaveVechicle | null = {
+  vehicle: ISaveVehicle | null = {
     id: 0,
     makeId: 0,
     modelId: 0,
@@ -99,7 +99,7 @@ export class VehicleFormComponent implements OnInit {
     if (this.vehicle.id) {
       this.vehicleService.update(this.vehicle)
         .subscribe(x => {
-          this.toastr.success("The vehicle was sucessfully updated.", "Success")
+          this.toastr.success("The vehicle was successfully updated.", "Success")
         });
     }
     else {

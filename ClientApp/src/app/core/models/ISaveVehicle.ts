@@ -1,7 +1,7 @@
 import { IContact } from "./IContact";
 
 
-export interface ISaveVechicle {
+export interface ISaveVehicle {
   id: Number;
   makeId: Number;
   modelId: Number;
