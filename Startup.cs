@@ -1,3 +1,4 @@
+using System;
 using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -6,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using VegaForCourse.Core;
 using VegaForCourse.Mapping;
 using VegaForCourse.Persistence;
@@ -29,7 +31,8 @@ namespace VegaForCourse
             services.AddAutoMapper(typeof(MappingProfile));
             services.AddDbContext<VegaDbContext>(options =>
             {
-                options.UseSqlServer(Configuration.GetConnectionString("Default"), builder => builder.EnableRetryOnFailure());
+                options.UseSqlServer(Configuration.GetConnectionString("Default"),
+                    builder => builder.EnableRetryOnFailure()).LogTo(Console.WriteLine, LogLevel.Information);
             });
             services.AddControllersWithViews();
             // In production, the Angular files will be served from this directory
