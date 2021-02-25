@@ -1,0 +1,45 @@
+<h2>Vehicles</h2>
+
+<a class="btn btn-primary btn-lg" routerLink="/vehicles/new">
+  New Vehicle
+</a>
+
+<div class="card">
+  <div class="form-group card-body">
+    <label for="make">Make</label>
+    <select id="make" class="form-control" [(ngModel)]="filter.makeId" (change)="onFilterChange()">
+      <option value=""></option>
+      <option *ngFor="let m of makes" value="{{m.id}}">
+        {{m.name}}
+      </option>
+    </select>
+    <button type="button" class="btn btn-secondary" (click)="resetFilter()">
+      Reset
+    </button>
+  </div>
+</div>
+
+<table class="table">
+  <thead>
+  <tr>
+    <th scope="col">Id</th>
+    <th scope="col">Make</th>
+    <th scope="col">Model</th>
+    <th scope="col">Contact Name</th>
+    <th scope="col">Edit</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let v of vehicles">
+    <th scope="row">{{v.id}}</th>
+    <td>{{v.make.name}}</td>
+    <td>{{v.model.name}}</td>
+    <td>{{v.contact.name}}</td>
+    <td>
+      <a [routerLink]="['/vehicles', v.id]">
+        View
+      </a>
+    </td>
+  </tr>
+  </tbody>
+</table>

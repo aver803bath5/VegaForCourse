@@ -3,7 +3,7 @@ import { HttpClient } from "@angular/common/http";
 import {IMake} from "../core/models/IMake";
 import { IFeature } from "../core/models/IFeature";
 import { IVehicle } from "../core/models/IVechicle";
-import { ISaveVechicle } from '../core/models/ISaveVechicle';
+import { ISaveVehicle } from '../core/models/ISaveVehicle';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +15,10 @@ export class VehicleService {
 
   getVehicle(id) {
     return this.http.get<IVehicle>(`/api/vehicles/${id}`);
+  }
+
+  getVehicles() {
+    return this.http.get<Array<IVehicle>>('/api/vehicles');
   }
 
   getMakes() {
@@ -30,7 +34,7 @@ export class VehicleService {
     return this.http.post('/api/vehicles', vehicle);
   }
 
-  update(vehicle: ISaveVechicle) {
+  update(vehicle: ISaveVehicle) {
     return this.http.put(`/api/vehicles/${vehicle.id}`, vehicle);
   }
 

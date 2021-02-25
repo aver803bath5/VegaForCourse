@@ -15,8 +15,8 @@ import { HomeComponent } from './home/home.component';
 import { CounterComponent } from './counter/counter.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { VehicleFormComponent } from './vehicle-form/vehicle-form.component';
-import { VehicleService } from "./services/vehicle.service";
 import { AppErrorHandler } from "./app.error-handler.js";
+import { VehicleListComponent } from './vehicle-list/vehicle-list.component';
 
 if (!isDevMode()) {
   Sentry.init({
@@ -41,7 +41,8 @@ if (!isDevMode()) {
     HomeComponent,
     CounterComponent,
     FetchDataComponent,
-    VehicleFormComponent
+    VehicleFormComponent,
+    VehicleListComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -50,11 +51,12 @@ if (!isDevMode()) {
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
     RouterModule.forRoot([
-      { path: '', component: HomeComponent, pathMatch: 'full' },
+      { path: '', redirectTo: 'vehicles', pathMatch: 'full' },
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent },
-      { path: 'vehicles/new', component: VehicleFormComponent, pathMatch: 'full' },
-      { path: 'vehicles/:id', component: VehicleFormComponent, pathMatch: 'full' },
+      { path: 'vehicles/new', component: VehicleFormComponent },
+      { path: 'vehicles/:id', component: VehicleFormComponent },
+      { path: 'vehicles', component: VehicleListComponent }
     ])
   ],
   providers: [
@@ -71,11 +73,11 @@ if (!isDevMode()) {
     },
     {
       provide: APP_INITIALIZER,
-      useFactory: () => () => { },
+      useFactory: () => () => {
+      },
       deps: [Sentry.TraceService],
       multi: true,
     },
-    VehicleService,
   ],
   bootstrap: [AppComponent]
 })
