@@ -1,9 +1,5 @@
 import { IContact } from "./IContact";
-
-export interface IKeyValuePair {
-  id: Number;
-  name: String;
-}
+import { IKeyValuePair } from "./IKeyValuePair";
 
 export interface IVehicle {
   id: Number;
