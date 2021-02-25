@@ -3,12 +3,12 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from "@angular/router";
 import { VehicleService } from "../services/vehicle.service";
 import { IMake } from "../core/models/IMake";
-import { IModel } from "../core/models/IModel";
 import { IFeature } from "../core/models/IFeature";
 import { ToastrService } from "ngx-toastr";
 import { Observable, forkJoin } from 'rxjs';
 import { IVehicle } from '../core/models/IVechicle';
 import { ISaveVehicle } from '../core/models/ISaveVehicle';
+import { IKeyValuePair } from "../core/models/IKeyValuePair";
 
 @Component({
   selector: 'app-vehicle-form',
@@ -18,7 +18,7 @@ import { ISaveVehicle } from '../core/models/ISaveVehicle';
 
 export class VehicleFormComponent implements OnInit {
   makes = new Array<IMake>();
-  models = new Array<IModel>();
+  models = new Array<IKeyValuePair>();
   features = new Array<IFeature>();
   vehicle: ISaveVehicle | null = {
     id: 0,
@@ -98,7 +98,7 @@ export class VehicleFormComponent implements OnInit {
   submit() {
     if (this.vehicle.id) {
       this.vehicleService.update(this.vehicle)
-        .subscribe(x => {
+        .subscribe(() => {
           this.toastr.success("The vehicle was successfully updated.", "Success")
         });
     }
@@ -111,7 +111,7 @@ export class VehicleFormComponent implements OnInit {
   delete() {
     if (confirm("Are you sure?")) {
       this.vehicleService.delete(this.vehicle.id)
-        .subscribe(x => {
+        .subscribe(() => {
           this.router.navigate(['/']);
         });
     }

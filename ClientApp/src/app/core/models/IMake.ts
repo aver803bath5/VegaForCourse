@@ -1,7 +1,5 @@
-import {IModel} from "./IModel";
+import { IKeyValuePair } from "./IKeyValuePair";
 
-export interface IMake {
-  id: Number,
-  name: Number,
-  models: Array<IModel>
+export interface IMake extends IKeyValuePair {
+  models: Array<IKeyValuePair>
 }
