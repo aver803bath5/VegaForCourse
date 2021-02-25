@@ -12,12 +12,19 @@ import { faSortDown, faSortUp } from "@fortawesome/free-solid-svg-icons";
 export class VehicleListComponent implements OnInit {
   vehicles: IVehicle[] = [];
   makes: IMake[] = [];
-  query: any = {
-  };
+  query: any = {};
+  columns = [
+    { title: 'id' },
+    { title: 'Make', key: 'make', isSortable: true },
+    { title: 'Model', key: 'model', isSortable: true },
+    { title: 'ContactName', key: 'contactName', isSortable: true },
+    {}
+  ];
 
   constructor(
     private vehicleService: VehicleService
-  ) { }
+  ) {
+  }
 
   ngOnInit() {
     this.vehicleService.getMakes().subscribe(makes => this.makes = [...makes]);

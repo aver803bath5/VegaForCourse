@@ -22,26 +22,17 @@
 <table class="table">
   <thead>
   <tr>
-    <th scope="col">Id</th>
-    <th scope="col" (click)="sortBy('make')">
-      Make
-      <fa-icon
-        *ngIf="query.sortBy === 'make'"
-        [icon]="setSortIcon()"></fa-icon>
+    <th scope="col" *ngFor="let c of columns" (click)="sortBy(c.key)">
+      <div *ngIf="c.isSortable">
+        {{c.title}}
+        <fa-icon
+          *ngIf="query.sortBy === c.key"
+          [icon]="setSortIcon()"></fa-icon>
+      </div>
+      <div *ngIf="!c.isSortable">
+        {{c.title}}
+      </div>
     </th>
-    <th scope="col" (click)="sortBy('model')">
-      Model
-      <fa-icon
-        *ngIf="query.sortBy === 'model'"
-        [icon]="setSortIcon()"></fa-icon>
-    </th>
-    <th scope="col" (click)="sortBy('contactName')">
-      <fa-icon
-        *ngIf="query.sortBy === 'contactName'"
-        [icon]="setSortIcon()"></fa-icon>
-      Contact Name
-    </th>
-    <th scope="col">Edit</th>
   </tr>
   </thead>
   <tbody>
