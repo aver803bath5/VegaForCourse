@@ -7,7 +7,7 @@
 <div class="card">
   <div class="form-group card-body">
     <label for="make">Make</label>
-    <select id="make" class="form-control" [(ngModel)]="filter.makeId" (change)="onFilterChange()">
+    <select id="make" class="form-control" [(ngModel)]="query.makeId" (change)="onFilterChange()">
       <option value=""></option>
       <option *ngFor="let m of makes" value="{{m.id}}">
         {{m.name}}
@@ -23,9 +23,24 @@
   <thead>
   <tr>
     <th scope="col">Id</th>
-    <th scope="col">Make</th>
-    <th scope="col">Model</th>
-    <th scope="col">Contact Name</th>
+    <th scope="col" (click)="sortBy('make')">
+      Make
+      <fa-icon
+        *ngIf="query.sortBy === 'make'"
+        [icon]="setSortIcon()"></fa-icon>
+    </th>
+    <th scope="col" (click)="sortBy('model')">
+      Model
+      <fa-icon
+        *ngIf="query.sortBy === 'model'"
+        [icon]="setSortIcon()"></fa-icon>
+    </th>
+    <th scope="col" (click)="sortBy('contactName')">
+      <fa-icon
+        *ngIf="query.sortBy === 'contactName'"
+        [icon]="setSortIcon()"></fa-icon>
+      Contact Name
+    </th>
     <th scope="col">Edit</th>
   </tr>
   </thead>

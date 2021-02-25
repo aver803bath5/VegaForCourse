@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { IVehicle } from "../core/models/IVechicle";
 import { VehicleService } from "../services/vehicle.service";
 import { IMake } from "../core/models/IMake";
+import { faSortDown, faSortUp } from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: 'app-vehicle-list',
@@ -11,7 +12,7 @@ import { IMake } from "../core/models/IMake";
 export class VehicleListComponent implements OnInit {
   vehicles: IVehicle[] = [];
   makes: IMake[] = [];
-  filter: any = {
+  query: any = {
   };
 
   constructor(
@@ -28,12 +29,26 @@ export class VehicleListComponent implements OnInit {
   }
 
   resetFilter() {
-    this.filter = {};
+    this.query = {};
     this.onFilterChange();
   }
 
+  sortBy(columnName) {
+    if (this.query.sortBy == columnName) {
+      this.query.isSortAscending = !this.query.isSortAscending;
+    } else {
+      this.query.sortBy = columnName;
+      this.query.isSortAscending = true;
+    }
+    this.populateVehicles();
+  }
+
+  setSortIcon() {
+    return this.query.isSortAscending ? faSortUp : faSortDown;
+  }
+
   private populateVehicles() {
-    this.vehicleService.getVehicles(this.filter).subscribe(vehicles => {
+    this.vehicleService.getVehicles(this.query).subscribe(vehicles => {
       this.vehicles = [...vehicles];
     });
   }
