@@ -4,6 +4,7 @@ import {IMake} from "../core/models/IMake";
 import { IFeature } from "../core/models/IFeature";
 import { IVehicle } from "../core/models/IVechicle";
 import { ISaveVehicle } from '../core/models/ISaveVehicle';
+import { IQueryResult } from "../core/models/IQueryResult";
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,7 @@ export class VehicleService {
   }
 
   getVehicles(filter) {
-    return this.http.get<Array<IVehicle>>('/api/vehicles', {
+    return this.http.get<IQueryResult<IVehicle>>('/api/vehicles', {
       params: filter
     });
   }

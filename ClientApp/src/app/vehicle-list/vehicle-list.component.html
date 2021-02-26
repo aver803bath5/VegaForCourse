@@ -36,7 +36,7 @@
   </tr>
   </thead>
   <tbody>
-  <tr *ngFor="let v of vehicles">
+  <tr *ngFor="let v of queryResult.items">
     <th scope="row">{{v.id}}</th>
     <td>{{v.make.name}}</td>
     <td>{{v.model.name}}</td>
@@ -49,3 +49,5 @@
   </tr>
   </tbody>
 </table>
+
+  <app-pagination class="d-flex justify-content-center" [total-items]="queryResult.totalItems" [page-size]="query.pageSize" (page-changed)="onPageChange($event)"></app-pagination>
