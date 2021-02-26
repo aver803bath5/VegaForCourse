@@ -18,6 +18,7 @@ import { VehicleFormComponent } from './vehicle-form/vehicle-form.component';
 import { AppErrorHandler } from "./app.error-handler.js";
 import { VehicleListComponent } from './vehicle-list/vehicle-list.component';
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
+import { PaginationComponent } from "../shared/pagination.component";
 
 if (!isDevMode()) {
   Sentry.init({
@@ -43,7 +44,8 @@ if (!isDevMode()) {
     CounterComponent,
     FetchDataComponent,
     VehicleFormComponent,
-    VehicleListComponent
+    VehicleListComponent,
+    PaginationComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
