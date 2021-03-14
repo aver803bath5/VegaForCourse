@@ -1,0 +1,37 @@
+<h1>Vehicle</h1>
+
+<app-tab-list>
+  <app-tab tab-name="Basics" [active]="true">
+    <div *ngIf="vehicle">
+      <h2>
+        Basics
+      </h2>
+      <ul>
+        <li>Make: {{vehicle.make.name}}</li>
+        <li>Model: {{vehicle.model.name}}</li>
+        <li>Registered: {{vehicle.isRegistered ? 'Yes' : 'No'}}</li>
+      </ul>
+      <h2>Features</h2>
+      <ul>
+        <li *ngFor="let f of vehicle.features">
+          {{f.name}}
+        </li>
+      </ul>
+      <h2>Contact</h2>
+      <ul>
+        <li>Contact Name: {{ vehicle.contact.name }}</li>
+        <li>Contact Phone: {{ vehicle.contact.phone }}</li>
+        <li>Contact Email: {{ vehicle.contact.email }}</li>
+      </ul>
+      <br/>
+      <div>
+        <a class="btn btn-primary" [routerLink]="['/vehicles/edit', vehicle.id]">Edit</a>
+        <button class="btn btn-danger" (click)="delete()">Delete</button>
+        <a class="btn btn-secondary" [routerLink]="['/vehicles']">View All Vehicles</a>
+      </div>
+    </div>
+  </app-tab>
+  <app-tab tab-name="Photos">
+    PHotos
+  </app-tab>
+</app-tab-list>

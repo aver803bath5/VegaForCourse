@@ -18,7 +18,10 @@ import { VehicleFormComponent } from './vehicle-form/vehicle-form.component';
 import { AppErrorHandler } from "./app.error-handler.js";
 import { VehicleListComponent } from './vehicle-list/vehicle-list.component';
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
-import { PaginationComponent } from "../shared/pagination.component";
+import { PaginationComponent } from "./shared/pagination.component";
+import { ViewVehicleComponent } from './view-vehicle/view-vehicle.component';
+import { TabListComponent } from "./shared/tab-list.component";
+import { TabComponent } from "./shared/tab.component";
 
 if (!isDevMode()) {
   Sentry.init({
@@ -45,7 +48,10 @@ if (!isDevMode()) {
     FetchDataComponent,
     VehicleFormComponent,
     VehicleListComponent,
-    PaginationComponent
+    PaginationComponent,
+    ViewVehicleComponent,
+    TabListComponent,
+    TabComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -59,7 +65,8 @@ if (!isDevMode()) {
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent },
       { path: 'vehicles/new', component: VehicleFormComponent },
-      { path: 'vehicles/:id', component: VehicleFormComponent },
+      { path: 'vehicles/edit/:id', component: VehicleFormComponent },
+      { path: 'vehicles/:id', component: ViewVehicleComponent },
       { path: 'vehicles', component: VehicleListComponent }
     ])
   ],
