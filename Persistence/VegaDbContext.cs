@@ -12,6 +12,8 @@ namespace VegaForCourse.Persistence
         public DbSet<Vehicle> Vehicles { get; set; }
         public DbSet<VehicleFeature> VehicleFeatures { get; set; }
 
+        public DbSet<Photo> Photos { get; set; }
+
         public VegaDbContext(DbContextOptions<VegaDbContext> options)
             : base(options)
         {
