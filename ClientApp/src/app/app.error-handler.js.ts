@@ -1,4 +1,4 @@
-import { ErrorHandler, Inject, NgZone } from "@angular/core";
+import { ErrorHandler, Inject, isDevMode, NgZone } from "@angular/core";
 import { ToastrService } from "ngx-toastr";
 
 export class AppErrorHandler implements ErrorHandler {
@@ -10,9 +10,12 @@ export class AppErrorHandler implements ErrorHandler {
 
   handleError(error: any): void {
     this.ngZone.run(() => {
-      this.toastr.error("An unexpected happened", "Error", {
-        closeButton: true,
-      });
+      if (!isDevMode()) {
+        this.toastr.error("An unexpected happened", "Error", {
+          closeButton: true,
+        });
+      }
+      console.error(error);
     });
   }
 }
