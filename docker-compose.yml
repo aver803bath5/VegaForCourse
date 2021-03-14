@@ -3,8 +3,12 @@ services:
   db:
     image: "mcr.microsoft.com/mssql/server"
     container_name: "vegaForCourseDb"
+    volumes:
+      - db-volume:/var/opt/mssql
     ports:
       - "1433:1433"
     environment:
       ACCEPT_EULA: "Y"
       SA_PASSWORD: "yourStrong(!)Password"
+volumes:
+  db-volume:
