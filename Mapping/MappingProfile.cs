@@ -10,6 +10,7 @@ namespace VegaForCourse.Mapping
         public MappingProfile()
         {
             // Domain to API Resource
+            CreateMap<Photo, PhotoResource>();
             CreateMap(typeof(QueryResult<>), typeof(QueryResultResource<>));
             CreateMap<VehicleQuery, VehiclesQueryResource>();
             CreateMap<Make, MakeResource>();
