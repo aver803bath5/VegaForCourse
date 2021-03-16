@@ -14,8 +14,9 @@ export class AppErrorHandler implements ErrorHandler {
         this.toastr.error("An unexpected happened", "Error", {
           closeButton: true,
         });
+      } else {
+        throw error;
       }
-      console.error(error);
     });
   }
 }
