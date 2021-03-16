@@ -9,5 +9,7 @@ namespace VegaForCourse.Core.Models
         [Required]
         [MaxLength(255)]
         public string FileName { get; set; }
+
+        public int  VehicleId { get; set; }
     }
 }
