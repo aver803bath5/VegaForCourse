@@ -33,7 +33,7 @@
   </app-tab>
   <app-tab tab-name="Photos">
     <input type="file" (change)="uploadPhoto()" #fileInput>
-    <button type="button" class="btn btn-danger" [disabled]="progress.percentage <= 0" #cancelButton>Cancel</button>
+    <button type="button" class="btn btn-danger" [disabled]="progress.percentage <= 0" (click)="cancelUpload()">Cancel</button>
     <div class="progress" *ngIf="progress && progress.percentage >= 0">
       <div class="progress-bar" role="progressbar" [style.width]="progress.percentage + '%'" [attr.aria-valuenow]="progress.percentage" aria-valuemin="0" aria-valuemax="100">{{this.progress.percentage}}%</div>
     </div>

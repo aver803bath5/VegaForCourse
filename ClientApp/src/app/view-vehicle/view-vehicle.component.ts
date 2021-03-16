@@ -5,7 +5,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { PhotoService } from "../services/photo.service";
 import { HttpEventType, HttpResponse } from "@angular/common/http";
 import { finalize, takeUntil } from "rxjs/operators";
-import { fromEvent } from "rxjs";
+import { from, fromEvent, Subject } from "rxjs";
 import { ToastrService } from "ngx-toastr";
 
 @Component({
@@ -15,7 +15,7 @@ import { ToastrService } from "ngx-toastr";
 })
 export class ViewVehicleComponent implements OnInit {
   @ViewChild('fileInput', { static: true }) fileInput: ElementRef;
-  @ViewChild('cancelButton', { static: false }) cancelButton: ElementRef;
+  cancelSubject = new Subject();
   vehicleId = 0;
   vehicle: IVehicle = null;
   photos = [];
@@ -57,7 +57,7 @@ export class ViewVehicleComponent implements OnInit {
     nativeElement.value = '';
     this.photoService.upload(this.vehicleId, file)
       .pipe(
-        takeUntil(fromEvent(this.cancelButton.nativeElement as HTMLButtonElement, 'click')),
+        takeUntil(from(this.cancelSubject)),
         finalize(() => {
           // Reset progress percentage
           this.progress.percentage = -1;
@@ -73,5 +73,9 @@ export class ViewVehicleComponent implements OnInit {
         err => {
           this.toastr.error(err.error, 'Error');
         });
+  }
+
+  cancelUpload() {
+    this.cancelSubject.next('cancel');
   }
 }
