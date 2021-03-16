@@ -1,6 +1,6 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Hosting;
@@ -19,16 +19,19 @@ namespace VegaForCourse.Controllers
     public class PhotosController : ControllerBase
     {
         private readonly IWebHostEnvironment _host;
-        private readonly IVehicleRepository _repository;
+        private readonly IVehicleRepository _vehicleRepository;
+        private readonly IPhotoRepository _photoRepository;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
         private readonly PhotoSettings _photoSettings;
 
-        public PhotosController(IWebHostEnvironment host, IVehicleRepository repository, IUnitOfWork unitOfWork,
+        public PhotosController(IWebHostEnvironment host, IVehicleRepository vehicleRepository,
+            IPhotoRepository photoRepository, IUnitOfWork unitOfWork,
             IMapper mapper, IOptions<PhotoSettings> options)
         {
             _host = host;
-            _repository = repository;
+            _vehicleRepository = vehicleRepository;
+            _photoRepository = photoRepository;
             _unitOfWork = unitOfWork;
             _mapper = mapper;
             _photoSettings = options.Value;
@@ -37,7 +40,7 @@ namespace VegaForCourse.Controllers
         [HttpPost]
         public async Task<IActionResult> Upload(int vehicleId, IFormFile file)
         {
-            var vehicle = await _repository.GetVehicle(vehicleId, includeRelated: false);
+            var vehicle = await _vehicleRepository.GetVehicle(vehicleId, includeRelated: false);
             if (vehicle == null)
                 return NotFound();
 
@@ -61,6 +64,14 @@ namespace VegaForCourse.Controllers
             await _unitOfWork.CompleteAsync();
 
             return Ok(_mapper.Map<Photo, PhotoResource>(photo));
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetPhotos(int vehicleId)
+        {
+            var photos = await _photoRepository.GetPhotos(vehicleId);
+
+            return Ok(_mapper.Map<IEnumerable<Photo>, IEnumerable<PhotoResource>>(photos));
         }
     }
 }
